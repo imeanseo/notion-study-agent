@@ -8,7 +8,7 @@
 
 ---
 
-## ✨ 주요 기능
+## ✨ Features
 
 - 🔄 **자동 수업 스캔**: Notion Courses DB의 모든 수업을 자동으로 감지
 - 📝 **증분 업데이트**: 매주 새로운 강의만 읽어서 처리 (`.sync/` 디렉토리 활용)
@@ -21,7 +21,7 @@
 
 ---
 
-## 🏗️ 아키텍처
+## 🏗️ Architecture
 
 ### LangGraph 파이프라인
 
@@ -66,9 +66,9 @@
 
 ---
 
-## 🚀 빠른 시작
+## 🚀 Quick Start
 
-### 1. 설치
+### 1. Installation
 
 ```bash
 # 레포지토리 클론
@@ -87,7 +87,7 @@ ollama pull exaone3.5:7.8b
 ollama pull solar
 ```
 
-### 2. 환경 설정
+### 2. Configuration
 
 ```bash
 # .env 파일 생성
@@ -115,14 +115,14 @@ OLLAMA_MODEL=exaone3.5:7.8b
 SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK/URL
 ```
 
-### 3. Notion 연동
+### 3. Notion Integration
 
 1. https://www.notion.so/my-integrations 에서 Integration 생성
 2. `NOTION_API_KEY` 복사
 3. Notion에서 Courses DB와 오늘의 퀴즈 DB를 Integration에 연결:
    - 페이지 우측 상단 `•••` → "Add connections" → Integration 선택
 
-### 4. 실행
+### 4. Run
 
 ```bash
 # 전체 파이프라인 실행 (모니터링 + Slack 알림)
@@ -134,7 +134,7 @@ python run_full_pipeline.py
 
 ---
 
-## 📊 실행 결과 예시
+## 📊 Example Output
 
 ```
 🔍 Courses DB 스캔 시작...
@@ -181,9 +181,9 @@ python run_full_pipeline.py
 
 ---
 
-## 🔄 자동화 설정
+## 🔄 Automation Setup
 
-### cron으로 매주 자동 실행
+### Weekly Auto-Run with cron
 
 ```bash
 # crontab 편집
@@ -193,7 +193,7 @@ crontab -e
 0 21 * * 5 cd /path/to/notion-quiz-generator && /usr/local/bin/python3 run_with_monitoring.py
 ```
 
-### 워크플로우
+### Workflow
 
 1. **월~금**: Notion에 강의 녹음 + PDF 업로드
 2. **금요일 밤 21:00**: 자동으로 퀴즈 생성 → Notion 업로드 → Slack 알림 📱
@@ -201,7 +201,7 @@ crontab -e
 
 ---
 
-## 📁 프로젝트 구조
+## 📁 Project Structure
 
 ```
 notion-quiz-generator/
@@ -242,9 +242,9 @@ notion-quiz-generator/
 
 ---
 
-## 🎯 주요 기능 상세
+## 🎯 Feature Details
 
-### 1. 증분 업데이트 (Incremental Update)
+### 1. Incremental Update
 
 매주 **새로운 강의만** 읽어서 처리합니다.
 
@@ -264,7 +264,7 @@ rm -rf .sync
 python run_with_monitoring.py
 ```
 
-### 2. 수업 필터링
+### 2. Course Filtering
 
 시험 안 보는 수업 등을 제외할 수 있습니다:
 
@@ -273,7 +273,7 @@ python run_with_monitoring.py
 EXCLUDED_COURSES=언어공학캡스톤디자인,교양수업
 ```
 
-### 3. Ollama 모델 변경
+### 3. Change Ollama Model
 
 ```bash
 # .env
@@ -292,7 +292,7 @@ ollama list
 ollama pull llama3.1:8b
 ```
 
-### 4. 모니터링 기능
+### 4. Monitoring Features
 
 `run_with_monitoring.py`는 다음 기능을 제공:
 
@@ -313,7 +313,7 @@ grep "ERROR" logs/*.log
 
 ---
 
-## 🔧 트러블슈팅
+## 🔧 Troubleshooting
 
 ### Notion API 401 Unauthorized
 
@@ -324,7 +324,7 @@ grep "ERROR" logs/*.log
 2. 우측 상단 `•••` → "Add connections"
 3. 만든 Integration 선택
 
-### Ollama 연결 실패
+### Ollama Connection Failed
 
 **원인**: Ollama 서버가 실행되지 않음
 
@@ -337,7 +337,7 @@ ollama serve
 ollama serve &
 ```
 
-### PDF 텍스트 추출 실패
+### PDF Text Extraction Failed
 
 **원인**: 이미지 기반 PDF (OCR 필요)
 
@@ -345,7 +345,7 @@ ollama serve &
 
 **향후 계획**: OCR 기능 추가 예정
 
-### 퀴즈가 생성되지 않음
+### No Quiz Generated
 
 **확인 사항**:
 1. `.sync/` 디렉토리 확인 → 새로운 강의가 있는지
@@ -354,9 +354,9 @@ ollama serve &
 
 ---
 
-## 🛠️ 개발자 가이드
+## 🛠️ Developer Guide
 
-### 로컬 개발
+### Local Development
 
 ```bash
 # 가상환경 생성
@@ -370,7 +370,7 @@ pip install -r requirements.txt
 python run_full_pipeline.py
 ```
 
-### 새로운 노드 추가
+### Adding New Nodes
 
 1. `src/nodes/` 아래에 파일 생성
 2. `src/state.py`에 필요한 상태 추가
@@ -394,7 +394,7 @@ graph.add_edge("previous_node", "my_node")
 
 ---
 
-## 📝 향후 계획
+## 📝 Roadmap
 
 - [ ] Step 4: 학습 에이전트 (틀린 문제 가이드)
 - [ ] OCR 지원 (이미지 기반 PDF)
@@ -405,7 +405,7 @@ graph.add_edge("previous_node", "my_node")
 
 ---
 
-## 🤝 기여
+## 🤝 Contributing
 
 이슈와 PR을 환영합니다!
 
@@ -417,23 +417,10 @@ graph.add_edge("previous_node", "my_node")
 
 ---
 
-## 📄 라이선스
+## 📄 License
 
 MIT License - 자유롭게 사용하세요!
 
 ---
 
-## 🙏 감사
-
-- [LangGraph](https://github.com/langchain-ai/langgraph) - 워크플로우 프레임워크
-- [Notion API](https://developers.notion.com/) - 데이터 소스
-- [Ollama](https://ollama.ai/) - 로컬 LLM
-- [pypdf](https://github.com/py-pdf/pypdf) - PDF 텍스트 추출
-
----
-
-## 📧 문의
-
-질문이나 제안이 있으시면 이슈를 열어주세요!
-
-**만든 사람**: [@imeanseo](https://github.com/imeanseo)
+**Made by**: [@imeanseo](https://github.com/imeanseo)
