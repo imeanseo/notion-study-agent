@@ -72,8 +72,8 @@
 
 ```bash
 # 레포지토리 클론
-git clone https://github.com/YOUR_USERNAME/notion-quiz-generator.git
-cd notion-quiz-generator
+git clone https://github.com/imeanseo/notion-study-agent.git
+cd notion-study-agent
 
 # 의존성 설치
 pip install -r requirements.txt
